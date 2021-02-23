@@ -3,7 +3,7 @@ var app = express();
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-  res.send('Hello World! Here is a small change');
+  res.send('Hello World! Here Is A Small Change');
 });
 
 app.listen(80, function () {
