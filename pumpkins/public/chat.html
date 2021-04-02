@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script type="text/javascript">
+
+            window.addEventListener('load', function() {
+
+                document.getElementById('send').addEventListener('click', sendData);
+
+                function sendData() {
+                    var message = document.getElementById("newmessage").value;
+                    fetch('/chatsubmit?message=' + message).then(function(response) {
+                        return response.json();
+                    }).then(function(data) {
+                        console.log(data);
+                    });
+                }   
+
+                function loadData() {
+                    fetch('/chatjson').then(function(response) {
+                        return response.json();
+                    }).then(function(data) {
+                        document.getElementById('messages').innerHTML = "";
+                        
+                        console.log(data);
+                        for (var i = 0; i < data.length; i++) {
+                    
+                            var div = document.createElement("div");
+                            div.innerHTML = data[i].message;
+                            
+                            document.getElementById('messages').appendChild(div);
+                        }
+                    });
+                }
+
+                setInterval(loadData, 1000);
+            });
+        </script>
+    </head>
+    <body>
+        <div id="messages">
+
+        </div>
+        <input type="text" id="newmessage">
+        <input type="button" id="send" value="Send">
+    </body>    
+</html>

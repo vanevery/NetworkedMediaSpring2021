@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            var count = 1;
+
+            window.addEventListener('load', function() {
+
+                var theimage = document.getElementById('theimage');
+
+                var mySuperDuperFunCanvas = document.getElementById('mycanvas');
+                var ctx = mySuperDuperFunCanvas.getContext('2d');
+                ctx.fillStyle = "#ff0000";
+                //ctx.fillRect(10,10,100,100);
+                //ctx.strokeStyle = "#000000";
+                //ctx.lineWidth = 5;
+
+                // window.setInterval(function() {
+                //     draw();
+                // }, 1000/60);
+
+                window.requestAnimationFrame(draw);
+
+                function draw() {
+                    ctx.clearRect(0,0,mySuperDuperFunCanvas.width, mySuperDuperFunCanvas.height);
+
+                    if (count < 100) { 
+                        ctx.beginPath();
+                        ctx.moveTo(count*10,0);
+                        ctx.lineTo(count*10,mySuperDuperFunCanvas.height)
+                        ctx.closePath();
+                        ctx.stroke();
+
+                        //ctx.drawImage(theimage, count*10, 0);
+                        ctx.font = 'bold 48px serif';
+                        ctx.fillText("BOO!",count*10,100);
+
+                        count++;
+                    }
+                    window.requestAnimationFrame(draw);
+                }
+
+                document.getElementById('save').addEventListener('click',function() {
+                    var thedata = mySuperDuperFunCanvas.toDataURL();
+                    document.getElementById('field').value = thedata;
+                    console.log(thedata);
+                    document.getElementById('form').submit();
+                });
+            });
+
+        </script>
+    </head>
+    <body>
+        <canvas width="600" height="600" id="mycanvas">Browser Doesn't Support Canvas</canvas>
+        <img src="myfunimage.jpg" id="theimage" style="display:none">
+
+        <form action="http://localhost/save" method="POST" id="form">
+            <input type="hidden" value="" name="image" id="field">
+            <input type="button" value="Save" id="save">
+        </form>
+
+    </body>
+</html>

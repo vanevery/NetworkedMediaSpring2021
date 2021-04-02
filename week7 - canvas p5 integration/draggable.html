@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            window.addEventListener('load', function() {
+               
+                var beingDragged = false;
+                //var draggableDiv = document.getElementById('fun');
+                var draggableDivs = document.getElementsByClassName('draggable');
+
+                for (var i =0; i < draggableDivs.length; i++) {
+                    draggableDivs[i].beingDragged = false;
+                    draggableDivs[i].addEventListener('mousedown',function(evt) {
+                        evt.target.beingDragged = true;
+                        console.log("mousepress");
+                    });
+                }
+
+                document.body.addEventListener('mouseup', function(evt) {
+                    document.getElementById('x').value = "";
+                    for (var i =0; i < draggableDivs.length; i++) {
+                        draggableDivs[i].beingDragged = false;
+                        document.getElementById('x').value += draggableDivs[i].style.left + ",";
+                        document.getElementById('y').value += draggableDivs[i].style.top + ",";
+                    }
+                });                            
+
+                document.body.addEventListener('mousemove', function(evt) {
+                    for (var i =0; i < draggableDivs.length; i++) {
+
+                        if (draggableDivs[i].beingDragged) {
+                            console.log("mousemove");
+                            console.log(evt.clientX, evt.clientY);
+                            evt.target.style.top = evt.clientY;
+                            evt.target.style.left = evt.clientX;
+
+
+                        }
+                    }
+                });
+            });
+
+        </script>
+    </head>
+    <body>
+        <div id="fun" class="draggable" style="position: absolute; top: 0px; left: 0px; user-select: none;">Hello World</div>
+        <div id="fun" class="draggable" style="position: absolute; top: 0px; left: 0px; user-select: none;">Hello World</div>
+        <div id="fun" class="draggable" style="position: absolute; top: 0px; left: 0px; user-select: none;">Hello World</div>
+        <div id="fun" class="draggable" style="position: absolute; top: 0px; left: 0px; user-select: none;">Hello World</div>
+
+        <form>
+            <input type="text" name="x" id="x" value="-1">
+            <input type="text" name="y" id="y" value="-1">
+        </form>
+    </body>
+</html>
