@@ -1,0 +1,79 @@
+<html>
+    <head>
+        
+
+        <script type="text/javascript">
+        
+            var funbutton;
+
+            //some object - addEventListener choose event, run function
+            window.addEventListener('load', pageInitialized);
+
+
+            //init();
+
+            function pageInitialized() {
+
+                
+
+                console.log("in init");
+                // document.getElementById - get a reference to anything on the page
+                funbutton = document.getElementById("funbutton");
+                console.log(funbutton);
+                
+                // Named function
+                funbutton.addEventListener("click", buttonClicked);
+                
+                
+                // Anonymous Inner Function - Example
+                funbutton.addEventListener("mousereleased", function() {
+                    console.log("mousereleased");
+                })
+
+                document.getElementById("makeit").addEventListener("click", function() {
+                    window.location.href = "http://google.com";
+                });
+            }
+
+            function buttonClicked() {
+                console.log("button clicked");
+                funbutton.value = "Gee Thanks, I needed that!";
+                funbutton.style.backgroundColor = "red";
+
+                // Very commonly for menus 
+                //document.getElementById("fundiv").style.display = "none";
+
+                document.body.style.backgroundColor = "black";
+
+                document.getElementById("fundiv").innerHTML = "Hi! " + document.getElementById("funtext").value 
+                document.getElementById("fundiv").style.color = "white";
+
+
+                // 2 ways to add elements:
+
+                // 1 pure JS
+                // var newElement = document.createElement("H1");
+                // newElement.innerHTML = "Hello World";
+                // newElement.style.color = "purple";
+                // document.body.appendChild(newElement);
+
+                // JS + HTML
+                document.body.innerHTML = document.body.innerHTML + "<h1>Hellow World</h1>";
+            }
+
+
+        </script>
+    </head>
+    <body>
+
+        <div id="loading" width="100%" height="100%">Loading</div>
+
+
+        <div id="fundiv">Nothing to see here</div>
+        <input type="text" id="funtext" value="your name"><br />
+        <input type="button" id="funbutton" value="Press Me">
+
+        <div id="makeit">Nothing</div>
+
+    </body>
+</html>

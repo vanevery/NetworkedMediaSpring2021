@@ -1,3 +1,11 @@
+var https = require('https');
+var fs = require('fs'); // Using the filesystem module
+
+var credentials = {
+    key: fs.readFileSync('privkey1.pem'),
+    cert: fs.readFileSync('cert1.pem')
+  };
+
 var express = require('express');
 var app = express();
 app.use(express.static('public'));
@@ -84,6 +92,11 @@ app.post('/fileupload', upload.single('thefile'), function (req, res) {
     //res.send(req.file);
 });
 
-app.listen(80, function () {
-  console.log('Example app listening on port 80!')
-});
+// app.listen(80, function () {
+//   console.log('Example app listening on port 80!')
+// });
+
+var httpsServer = https.createServer(credentials, app);
+
+// Default HTTPS Port
+httpsServer.listen(443);
